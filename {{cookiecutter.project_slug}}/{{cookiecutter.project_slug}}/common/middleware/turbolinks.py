@@ -24,8 +24,7 @@ class TurbolinksMiddleware:
         if response.status_code in (301, 302) and response.has_header("Location"):
             return self.handle_redirect(request, response, response["Location"])
         if response.status_code in range(200, 299):
-            location = request.session.pop(self.session_key, None)
-            if location:
+            if location := request.session.pop(self.session_key, None):
                 response[self.location_header] = location
         return response
 

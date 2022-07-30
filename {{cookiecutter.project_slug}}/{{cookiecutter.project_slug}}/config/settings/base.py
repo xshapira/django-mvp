@@ -36,8 +36,9 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 # configure internal IPS inside docker container
 
 INTERNAL_IPS = [
-    ip[:-1] + "1" for ip in socket.gethostbyname_ex(socket.gethostname())[2]
+    f"{ip[:-1]}1" for ip in socket.gethostbyname_ex(socket.gethostname())[2]
 ]
+
 
 ADMINS = getaddresses(env.list("ADMINS", default=[]))
 

@@ -28,4 +28,4 @@ def pagination_url(context, page_number, param="page"):
     request = context["request"]
     params = request.GET.copy()
     params[param] = page_number
-    return request.path + "?" + params.urlencode()
+    return f"{request.path}?{params.urlencode()}"

@@ -28,9 +28,11 @@ class UserQuerySet(models.QuerySet):
         Returns:
             QuerySet
         """
-        if not names:
-            return self.none()
-        return self.filter(username__iregex=r"^(%s)+" % "|".join(names))
+        return (
+            self.filter(username__iregex=f'^({"|".join(names)})+')
+            if names
+            else self.none()
+        )
 
 
 class UserManager(BaseUserManager.from_queryset(UserQuerySet)):
@@ -64,6 +66,6 @@ class User(AbstractUser):
         Returns:
             set: set of email addresses
         """
-        return set([self.email]) | set(
+        return {self.email} | set(
             self.emailaddress_set.values_list("email", flat=True)
         )

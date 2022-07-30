@@ -5,7 +5,7 @@ ALLOWED_CHARS = string.ascii_letters + string.digits
 
 
 def get_random_string(length=50):
-    return "".join(secrets.choice(ALLOWED_CHARS) for i in range(length))
+    return "".join(secrets.choice(ALLOWED_CHARS) for _ in range(length))
 
 
 def generate_env_file():
